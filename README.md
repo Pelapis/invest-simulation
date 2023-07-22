@@ -1,6 +1,4 @@
-# simulation-of-CSI-300-and-other-2-stocks-investment-of-2012-2022
-
-伪代码
+# 伪代码
 
 rors生成函数（每日收益数据，生成投资者数量，交易水平 = 0.5，交易频率 = 1，持有期 = 1天，交易成本 = 0.001）
 

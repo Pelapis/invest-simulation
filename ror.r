@@ -64,6 +64,9 @@ rors <- function(day_return, num_ror = 1, invest_level = 0.5, invest_freq = 1, h
     # Return RORs
     return(rors)
 }
+
+
+
 # Plot the density diagram of ROR
 
 # Set the max number, invest_freq and invest_level
@@ -95,6 +98,9 @@ legend(
 
 # Close the graphics device
 dev.off()
+
+
+
 # Plot the boxplot diagram of ROR with different invest levels
 
 # Set the max number, invest_freq and invest_level
@@ -129,6 +135,9 @@ legend(
     lty = c(1, 1, 1), cex = 0.8
 )
 dev.off()
+
+
+
 # Plot the boxplot diagram of ROR with different frequencies
 
 # Set the max number, invest_freq and invest_level
@@ -162,6 +171,9 @@ legend(
     lty = c(1, 1, 1), cex = 0.8
 )
 dev.off()
+
+
+
 # Calculate ROR for a given number of missed days
 calculate_ror <- function(missed_days, day_return) {
   ordered_day_return <- day_return[order(day_return, decreasing = TRUE)]
@@ -187,6 +199,8 @@ barplot(
 )
 dev.off()
 
+
+
 # Plot the line diagram
 png("~/Desktop/错过涨幅最大的几天折线图.png")
 plot(
@@ -198,6 +212,9 @@ plot(
   main = "Relationship between ROR and Missed Days"
 )
 dev.off()
+
+
+
 # Calculate ROR for a given number of missed days
 calculate_ror <- function(missed_days, day_return) {
   ordered_day_return <- day_return[order(day_return, decreasing = FALSE)]
@@ -222,6 +239,8 @@ barplot(
   names.arg = missed_days
 )
 dev.off()
+
+
 
 # Plot the line diagram
 png("~/Desktop/避开跌幅最大的几天折线图.png")
@@ -248,6 +267,9 @@ barplot(
   names.arg = x_labels
 )
 dev.off()
+
+
+
 # Plot function curve of Mean ROR vs. Invest Level
 
 # Generate a set of RORs for different invest levels
@@ -270,6 +292,8 @@ plot(
 )
 dev.off()
 
+
+
 # Plot the log of mean RORs against the invest levels
 png("~/Desktop/不同投资水平的ROR均值曲线_log.png")
 plot(
@@ -281,6 +305,9 @@ plot(
     main = "Log Mean ROR vs. Invest Level"
 )
 dev.off()
+
+
+
 # Plot the curve of Standard Deviation of ROR vs. Invest Level
 
 # Generate a set of RORs for different invest levels
@@ -302,6 +329,8 @@ plot(
     main = "Standard Deviation of ROR vs. Invest Level"
 )
 dev.off()
+
+
 
 # Plot the curve of Standard Deviation of ROR vs. Invest Frequency
 
@@ -325,6 +354,8 @@ plot(
 )
 dev.off()
 
+
+
 # Define hold periods
 hold_periods <- c(1, 5, 22, 63, 250, 2430)
 
@@ -341,6 +372,8 @@ colnames(rors_matrix) <- hold_periods
 png("~/Desktop/不同持有期的ROR箱线图.png")
 boxplot(rors_matrix, main = "ROR Boxplot for Different Hold Periods", xlab = "Hold Period", ylab = "ROR")
 dev.off()
+
+
 
 # Plot the curve of Standard Deviation of ROR vs. Hold Period
 
@@ -364,6 +397,8 @@ plot(
 )
 dev.off()
 
+
+
 # Plot the curve of Mean ROR vs. Hold Period
 
 # Generate a set of RORs for different hold periods
@@ -373,6 +408,8 @@ for (i in seq_along(holds)) {
     rors_i <- rors(day_return, 1000, 0.5, hold = holds[i])
     mean_rors[i] <- mean(rors_i)
 }
+
+
 
 # Plot the standard deviation of RORs against the invest frequencies
 png("~/Desktop/不同持有期的ROR均值曲线.png")

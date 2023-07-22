@@ -253,10 +253,11 @@ plot(
   main = "Relationship between ROR and Missed Days"
 )
 dev.off()
+
+
+
 # Define x-axis labels
 x_labels <- paste("Missed", missed_days, "Days", sep = " ")
-
-
 
 # Plot the bar chart with x-axis labels
 png("~/Desktop/避开跌幅最大的几天条形图.png")
@@ -408,8 +409,6 @@ for (i in seq_along(holds)) {
     rors_i <- rors(day_return, 1000, 0.5, hold = holds[i])
     mean_rors[i] <- mean(rors_i)
 }
-
-
 
 # Plot the standard deviation of RORs against the invest frequencies
 png("~/Desktop/不同持有期的ROR均值曲线.png")

@@ -67,40 +67,6 @@ rors <- function(day_return, num_ror = 1, invest_level = 0.5, invest_freq = 1, h
 
 
 
-# Plot the density diagram of ROR
-
-# Set the max number, invest_freq and invest_level
-num_ror <- 10000
-invest_level <- 0.5
-invest_freq <- 1
-
-# Simulate RORs to plot density diagram
-rors <- rors(day_return, num_ror, invest_level, invest_freq)
-
-# Create a new png to plot the density diagram
-png("~/Desktop/ROR的概率密度图.png")
-plot(density(rors), main = "Density of ROR", xlab = "ROR")
-
-# Add x = 1 line
-abline(v = 1, col = "red")
-
-# Add a legend of num_ror, invest freqency, invest level, the line, the mean and standard deviation
-legend(
-    "topright",
-    legend = c(
-        paste("Numbers:", num_ror),
-        paste("invest level:", invest_level),
-        paste("invest freqency:", invest_freq),
-        paste("mean:", round(mean(rors), 4)),
-        paste("standard deviation:", round(sd(rors), 4))
-    )
-)
-
-# Close the graphics device
-dev.off()
-
-
-
 # Plot the boxplot diagram of ROR with different invest levels
 
 # Set the max number, invest_freq and invest_level
@@ -420,4 +386,38 @@ plot(
     ylab = "Mean ROR",
     main = "Mean ROR vs. Hold Period"
 )
+dev.off()
+
+
+
+# Plot the density diagram of ROR
+
+# Set the max number, invest_freq and invest_level
+num_ror <- 10000
+invest_level <- 0.5
+invest_freq <- 1
+
+# Simulate RORs to plot density diagram
+rors <- rors(day_return, num_ror, invest_level, invest_freq)
+
+# Create a new png to plot the density diagram
+png("~/Desktop/ROR的概率密度图.png")
+plot(density(rors), main = "Density of ROR", xlab = "ROR")
+
+# Add x = 1 line
+abline(v = 1, col = "red")
+
+# Add a legend of num_ror, invest freqency, invest level, the line, the mean and standard deviation
+legend(
+    "topright",
+    legend = c(
+        paste("Numbers:", num_ror),
+        paste("invest level:", invest_level),
+        paste("invest freqency:", invest_freq),
+        paste("mean:", round(mean(rors), 4)),
+        paste("standard deviation:", round(sd(rors), 4))
+    )
+)
+
+# Close the graphics device
 dev.off()

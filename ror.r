@@ -1,6 +1,5 @@
 # Import libraries
 library(graphics)
-library(parallel)
 
 # Import data from csv file
 data_index <- read.csv("~/data_index.csv")[, 3] + 1
@@ -323,6 +322,9 @@ boxplot(
     ylab = "ROR"
 )
 dev.off()
+
+
+
 # CURVE OF MEAN ROR VS. HOLDING PERIOD
 
 # Generate holds and mean of RORs

@@ -306,6 +306,9 @@ barplot(
   names.arg = x_labels
 )
 dev.off()
+
+
+
 # BOXPLOT OF ROR FOR DIFFERENT HOLDING PERIODS
 
 # Set coordinates

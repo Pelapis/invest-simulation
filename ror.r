@@ -10,48 +10,28 @@ data_meng <- read.csv("~/data_meng.csv")[, 3] + 1
 day_return <- data_index
 
 # Define function to generate ROR for a given investment strategy
-gen_rors <- function(
-    day_returns = day_return,
-    num_ror = 1000,
-    invest_level = 0.5,
-    invest_freq = 1,
-    hold = 1,
-    trans_cost = 0.001
-    ) {
+gen_rors <- function(day_returns = day_return, num_ror = 1000, invest_level = 0.5, invest_freq = 1, hold = 1, trans_cost = 0.001) {
     # Period returns
-    num_period <- length(day_returns) %/% hold
-    day_end <- hold * num_period
-    return_matrix <- matrix(day_returns[1:day_end], nrow = num_period, byrow = TRUE)
-    period_returns <- c(apply(return_matrix, 1, prod))
+    gen_period_returns <- function(day_returns = day_returns, hold = hold) {
+        day_returns_add <- c(day_returns, rep(1, times = day_returns %% hold))
+        day_returns_matrix <- matrix(day_returns_add, nrow = hold)
+        period_returns <- apply(day_returns_matrix, 2, prod)
+        period_returns
+    }
+    period_returns <- gen_period_returns(day_returns = day_returns, hold = hold)
 
-    # Last period
-    if (length(day_returns) %% hold != 0) {
-        last_return <- prod(day_returns[(day_end + 1):length(day_returns)])
-        period_returns[length(period_returns)] <- last_return
+    # Focusing periods
+    gen_focusing_periods <- function(returns = period_returns, invest_freq = invest_freq) {
+        sample(c(TRUE, FALSE), size = length(returns), replace = TRUE, prob = c(invest_freq, 1 - invest_freq))
     }
 
-    # Consider
-    num_consid <- round(invest_freq * length(period_returns))
-    num_unconsid <- length(period_returns) - num_consid
-    consider <- c(rep(TRUE, num_consid), rep(FALSE, num_unconsid))
-
-    # Invest
-    periods <- length(period_returns)
-    probs <- c(invest_level, 1 - invest_level)
-    if_right <- period_returns > 1
-
-    # ROR
-    period_returns <- period_returns * (1 - trans_cost)
-    rors <- replicate(
-        num_ror,
-        prod(period_returns[
-            sample(consider)
-            & (sample(c(TRUE, FALSE), periods, TRUE, probs) == if_right)
-        ])
-    )
-
-    # Return RORs
-    return(rors)
+    # RORs
+    RORs <- replicate(num_ror, {
+        focusing_periods <- gen_focusing_periods(returns = period_returns, invest_freq = invest_freq)
+        if_invest <- sample(c(TRUE, FALSE), size = length(period_returns), replace = TRUE, prob = c(invest_level, 1 - invest_level)) == (period_returns > 1)
+        prod((period_returns * (1 - trans_cost))[focusing_periods & if_invest])
+    })
+    RORs
 }
 
 

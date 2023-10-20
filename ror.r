@@ -21,9 +21,8 @@ gen_rors <- function(day_returns = day_return, num_ror = 1000, invest_level = 0.
     period_returns <- gen_period_returns(day_returns = day_returns, hold = hold)
 
     # Focusing periods
-    gen_focusing_periods <- function(returns = period_returns, invest_freq = invest_freq) {
+    gen_focusing_periods <- function(returns = period_returns, invest_freq = invest_freq)
         sample(c(TRUE, FALSE), size = length(returns), replace = TRUE, prob = c(invest_freq, 1 - invest_freq))
-    }
 
     # RORs
     RORs <- replicate(num_ror, {

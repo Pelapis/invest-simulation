@@ -42,7 +42,7 @@ num_ror <- 1000
 invest_freq <- 1
 
 # Simulate RORs with different invest levels, and plot the boxplot diagram
-png("/Users/cavendish/Desktop/不同投资水平的ROR箱线图.png")
+png("./plots/不同投资水平的ROR箱线图.png")
 boxplot(
     gen_rors(day_return, num_ror, 0.475, invest_freq),
     gen_rors(day_return, num_ror, 0.5, invest_freq),
@@ -82,7 +82,7 @@ mean_rors <- sapply(
 )
 
 # Plot the mean RORs against the invest levels
-png("/Users/cavendish/Desktop/不同投资水平的ROR均值曲线.png")
+png("./plots/不同投资水平的ROR均值曲线.png")
 plot(
     invest_levels,
     mean_rors,
@@ -94,7 +94,7 @@ plot(
 dev.off()
 
 # Plot the log of mean RORs against the invest levels
-png("/Users/cavendish/Desktop/不同投资水平的ROR均值曲线_log.png")
+png("./plots/不同投资水平的ROR均值曲线_log.png")
 plot(
     invest_levels,
     log(mean_rors),
@@ -117,7 +117,7 @@ sd_rors <- sapply(
 )
 
 # Plot the standard deviation of RORs against the invest levels
-png("/Users/cavendish/Desktop/不同投资水平的ROR标准差曲线.png")
+png("./plots/不同投资水平的ROR标准差曲线.png")
 plot(
     invest_levels,
     sd_rors,
@@ -137,7 +137,7 @@ num_ror <- 1000
 invest_level <- 0.56
 
 # Simulate RORs with different frequencies, and plot the boxplot diagram
-png("/Users/cavendish/Desktop/不同频率的ROR箱线图.png")
+png("./plots/不同频率的ROR箱线图.png")
 boxplot(
     gen_rors(day_return, num_ror, invest_level, 0,),
     gen_rors(day_return, num_ror, invest_level, 0.25),
@@ -176,7 +176,7 @@ sd_rors <- sapply(
 )
 
 # Plot the standard deviation of RORs against the invest frequencies
-png("/Users/cavendish/Desktop/不同投资频率的ROR标准差曲线.png")
+png("./plots/不同投资频率的ROR标准差曲线.png")
 plot(
     invest_freqs,
     sd_rors,
@@ -207,7 +207,7 @@ ror <- sapply(missed_days, calculate_ror, day_return = day_return)
 cat(paste("ROR for missed", missed_days, "days:", ror, "\n"))
 
 # Plot the bar chart with x-axis labels
-png("/Users/cavendish/Desktop/错过涨幅最大的几天条形图.png")
+png("./plots/错过涨幅最大的几天条形图.png")
 barplot(
   ror,
   main = "Relationship between ROR and Missed Days",
@@ -217,7 +217,7 @@ barplot(
 dev.off()
 
 # Plot the line diagram
-png("/Users/cavendish/Desktop/错过涨幅最大的几天折线图.png")
+png("./plots/错过涨幅最大的几天折线图.png")
 plot(
   missed_days,
   ror,
@@ -248,7 +248,7 @@ ror <- sapply(missed_days, calculate_ror, day_return = day_return)
 cat(paste("ROR for missed", missed_days, "days:", ror, "\n"))
 
 # Plot the bar chart with x-axis labels
-png("/Users/cavendish/Desktop/避开跌幅最大的几天条形图.png")
+png("./plots/避开跌幅最大的几天条形图.png")
 barplot(
   ror,
   main = "Relationship between ROR and Missed Days",
@@ -258,7 +258,7 @@ barplot(
 dev.off()
 
 # Plot the line diagram
-png("/Users/cavendish/Desktop/避开跌幅最大的几天折线图.png")
+png("./plots/避开跌幅最大的几天折线图.png")
 plot(
   missed_days,
   ror,
@@ -277,7 +277,7 @@ dev.off()
 x_labels <- paste("Missed", missed_days, "Days", sep = " ")
 
 # Plot the bar chart with x-axis labels
-png("/Users/cavendish/Desktop/避开跌幅最大的几天条形图.png")
+png("./plots/避开跌幅最大的几天条形图.png")
 barplot(
   ror,
   main = "Relationship between ROR and Missed Days",
@@ -296,7 +296,7 @@ xy <- lapply(holds, function(x) gen_rors(hold = x))
 xy <- setNames(xy, holds)
 
 # Plot boxplot of RORs for different holding periods
-png("/Users/cavendish/Desktop/不同持有期的ROR箱线图.png")
+png("./plots/不同持有期的ROR箱线图.png")
 boxplot(
     xy,
     main = "ROR Boxplot for Different Hold Periods",
@@ -317,7 +317,7 @@ mean_rors <- sapply(
 )
 
 # Plot the mean of RORs against the holding period
-png("/Users/cavendish/Desktop/不同持有期的ROR均值曲线.png")
+png("./plots/不同持有期的ROR均值曲线.png")
 plot(
     holds,
     mean_rors,
@@ -340,7 +340,7 @@ sd_rors <- sapply(
 )
 
 # Plot the standard deviation of RORs against the invest frequencies
-png("/Users/cavendish/Desktop/不同持有期的ROR标准差曲线.png")
+png("./plots/不同持有期的ROR标准差曲线.png")
 plot(
     holds,
     sd_rors,
@@ -370,7 +370,7 @@ mean_rors <- round(mean(rors), 4)
 xy <- density(rors)
 
 # Plot the density curve
-png("/Users/cavendish/Desktop/ROR的概率密度图.png")
+png("./plots/ROR的概率密度图.png")
 plot(xy, main = "Density of ROR", xlab = "ROR")
 
 # Add x = 1 line

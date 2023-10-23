@@ -16,17 +16,15 @@ gen_RORs <- function(day_returns, num_ror = 100, invest_level = 0.5, invest_freq
 }
 
 # ROR line chart with error bars
-line_with_error_bar <- function(data_name, x = seq(0.4, 0.6, length.out = 20), var = "Invest Level", FUN = function(x) gen_RORs(invest_level = x, day_returns = day_return_data)) {
+line_with_error_bar <- function(data_name, k_sd = 0.12, x = seq(0.4, 0.6, length.out = 20), var = "Invest Level", FUN = function(x) gen_RORs(invest_level = x, day_returns = day_return_data)) {
     mean_RORs <- sapply(x, function(x) mean(FUN(x)))
     sd_RORs <- sapply(x, function(x) sd(FUN(x)))
-    k_sd <- 0.12
     y_lower <- mean_RORs - k_sd * sd_RORs
     y_upper <- mean_RORs + k_sd * sd_RORs
 
     png(paste0("./rplots/", data_name, "/Mean ROR vs ", var, ".png"))
     plot(x = x, y = mean_RORs, type = "l", main = paste0("Mean ROR vs ", var), xlab = var, ylab = "Mean ROR")
-    sapply(seq_along(x), function(i)
-        segments(x0 = x[i], y0 = y_lower[i], y1 = y_upper[i], lwd = 2))
+    sapply(seq_along(x), function(i) segments(x0 = x[i], y0 = y_lower[i], y1 = y_upper[i], lwd = 2))
     dev.off()
 }
 
@@ -35,9 +33,9 @@ main_plot <- function(data_name = "index") {
     # Import data from csv file
     day_return_data <- read.csv(paste0("./data_", data_name, ".csv"))[, 3] + 1
     # Plot line chart with error bars
-    line_with_error_bar(data_name = data_name, x = seq(0.4, 0.6, length.out = 20), var = "Invest Level", FUN = function(x) gen_RORs(invest_level = x, day_returns = day_return_data))
-    line_with_error_bar(data_name = data_name, x = seq(0, 1, length.out = 20), var = "Invest Freqency", FUN = function(x) gen_RORs(invest_freq = x, day_returns = day_return_data))
-    line_with_error_bar(data_name = data_name, x = seq(1, length(day_return_data), length.out = 20), var = "Hold Period", FUN = function(x) gen_RORs(hold = x, day_returns = day_return_data))
+    line_with_error_bar(data_name, x = seq(0.4, 0.6, length.out = 20), var = "Invest Level", FUN = function(x) gen_RORs(invest_level = x, day_returns = day_return_data))
+    line_with_error_bar(data_name, x = seq(0, 1, length.out = 20), var = "Invest Freqency", FUN = function(x) gen_RORs(invest_freq = x, day_returns = day_return_data))
+    line_with_error_bar(data_name, x = seq(1, length(day_return_data), length.out = 20), var = "Hold Period", FUN = function(x) gen_RORs(hold = x, day_returns = day_return_data))
 }
 
 main_plot("index")

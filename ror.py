@@ -12,19 +12,17 @@ def gen_RORs(day_return_data, ror_num=100, invest_level=0.5, invest_freq=1, hold
         focusing_periods = np.random.choice((True, False), size=len(period_returns), p=(invest_freq, 1 - invest_freq))
         # Get if invest or not
         if_invest = np.random.choice((True, False), size=len(period_returns), p=(invest_level, 1 - invest_level)) == (period_returns > 1)
-        # Get RORs
-        ROR = np.prod(period_returns[focusing_periods & if_invest] * (1 - trans_cost))
-        return ROR
+        # Get ROR
+        return np.prod(period_returns[focusing_periods & if_invest] * (1 - trans_cost))
     return np.array([gen_ROR() for _ in range(ror_num)])
 
 # Define function to plot ROR line chart with error bars
-def line_with_error_bar(data_name, var_name="Invest Level", x=np.linspace(0.4, 0.6, num=20), fun=lambda x : gen_RORs(day_return_data, invest_level=x)):
+def line_with_error_bar(data_name, k_sd=0.2, var_name="Invest Level", x=np.linspace(0.4, 0.6, num=20), fun=lambda x : gen_RORs(day_return_data, invest_level=x)):
     mean_RORs = np.array([np.mean(fun(x)) for x in x])
     std_RORs = np.array([np.std(fun(x)) for x in x])
-    k_sd = 0.2
     plt.figure()
     plt.plot(x, mean_RORs)
-    plt.errorbar(x, mean_RORs, yerr=k_sd * std_RORs)
+    plt.errorbar(x=x, y=mean_RORs, yerr=k_sd * std_RORs)
     plt.title(f"Mean ROR vs {var_name} with Error Bars")
     plt.xlabel(var_name)
     plt.ylabel("Mean ROR")

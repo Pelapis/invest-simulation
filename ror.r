@@ -1,4 +1,3 @@
-# Import libraries
 library(graphics)
 
 # Define function to generate ROR for a given investment strategy

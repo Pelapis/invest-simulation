@@ -2,20 +2,23 @@
 
 ## 背景问题：择时靠谱吗
 
-1. 观察沪深300指数、贵州茅台、梦洁股份k线走势，分别记录并计算它们近十年的上涨总天数和下降总天数，分别计算出它们上涨和下跌总天数各占这十年总观察天数的百分比，从而得到抓取到上涨时机的概率和抓取到下跌时机的概率。
-2. 情况一：保持不动持有上述三只十年。分别计算这三只的十年总收益率。
-3. 情况二：择时恰好择到了全部上涨期。分别计算在上述三只剔除了下跌天数后，把剩下的上涨天数的K线拼接起来的除开下跌时期的十年总收益率。
-4. 情况三：择时错过了25个涨幅最大的时间段。分别计算上述三只剔除了25个涨幅最大的时间段后的十年总收益率。
-5. 比较三种情况的结果，它们有何差距？
-6. 在进行了上述研究计算后，择时交易还值得选择吗？如何使择时更加准确以获得较大收益？
+假设投资者具有不同投资水平（预测明日股票涨跌的准确率），投资参与率（十年中参与投资的天数占比），每次投资的持有时间（短期还是长期投资）。模拟并分析10年中，不同投资者对沪深300指数、贵州茅台、梦洁股份的投资收益情况。探究对他们来说，择时交易是否是好的交易策略。
 
 ## ROR生成函数
 ```
 ROR生成函数（生成投资者数量，每日收益数据，交易水平 = 0.5，交易频率 = 1，持有期 = 1天，交易成本 = 0.001）
-    按照交易频率（即交易空闲），计算投资者在哪些周期会进行盯盘、参与交易
-    投资者每个周期猜对涨跌的概率由交易水平决定，当他认为下一周期会涨时，就会买入并持有一个持有期
-    考虑交易成本，计算这个投资者十年的累计收益率
-    生成相同参数的100个投资者，储存到RORs向量里并返回
 
 通过ROR生成函数返回的RORs向量来研究投资收益的种种特性
 ```
+
+# 10 Years Investment Simulation of CSI300, etc.
+
+## Background Question: Is Market Timing Reliable?
+
+Assuming investors have different investment levels (accuracy in predicting the daily stock price movements), participation rates (percentage of days they engage in investing over ten years), and holding periods (short-term or long-term investment). Simulate and analyze the investment returns of different investors over a ten-year period for CSI300, Guizhou Moutai, and Mengjie Stock. Investigate whether market timing is a viable trading strategy for them.
+
+## ROR Generation Function
+```
+ROR Generation Function (generate number of investors = 100, invest level = 0.5, invest frequency = 1, holding period = 1 day, trading cost = 0.001)
+```
+Use the RORs vector returned by the ROR Generation Function to examine characteristics of investment returns.

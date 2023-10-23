@@ -4,17 +4,9 @@ library(graphics)
 # Define function to generate ROR for a given investment strategy
 gen_RORs <- function(day_returns, num_ror = 100, invest_level = 0.5, invest_freq = 1, hold = 1, trans_cost = 0.001) {
     # Period returns
-    gen_period_returns <- function(day_returns = day_returns, hold = hold) {
-        ones <- rep(1, times = ceiling(length(day_returns) / hold) * hold - length(day_returns))
-        day_returns_add <- c(day_returns, ones)
-        day_returns_matrix <- matrix(day_returns_add, nrow = hold)
-        period_returns <- apply(day_returns_matrix, 2, prod)
-        period_returns
-    }
-    period_returns <- gen_period_returns(day_returns = day_returns, hold = hold)
-
+    period_returns <- apply(matrix(c(day_returns, rep(1, times = -length(day_returns) %% hold)), nrow = hold), MARGIN = 2, FUN = prod)
     # RORs
-    RORs <- replicate(num_ror, {
+    replicate(num_ror, {
         # Focusing periods
         focusing_periods <- sample(c(TRUE, FALSE), size = length(period_returns), replace = TRUE, prob = c(invest_freq, 1 - invest_freq))
         # Investment choices
@@ -22,7 +14,6 @@ gen_RORs <- function(day_returns, num_ror = 100, invest_level = 0.5, invest_freq
         # ROR
         prod(period_returns[focusing_periods & if_invest] * (1 - trans_cost))
     })
-    RORs
 }
 
 # ROR line chart with error bars

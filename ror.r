@@ -21,7 +21,7 @@ line_with_error_bar <- function(data_name, k_sd = 0.12, x = seq(0.4, 0.6, length
     sd_RORs <- sapply(x, function(x) sd(FUN(x)))
     y_lower <- mean_RORs - k_sd * sd_RORs
     y_upper <- mean_RORs + k_sd * sd_RORs
-
+    # Plot line chart
     png(paste0("./rplots/", data_name, "/Mean ROR vs ", var, ".png"))
     plot(x = x, y = mean_RORs, type = "l", main = paste0("Mean ROR vs ", var), xlab = var, ylab = "Mean ROR")
     sapply(seq_along(x), function(i) segments(x0 = x[i], y0 = y_lower[i], y1 = y_upper[i], lwd = 2))

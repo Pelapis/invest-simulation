@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 # Define function to generate RORs
 def gen_RORs(day_return_data, ror_num=100, invest_level=0.5, invest_freq=1, hold=1, trans_cost=0.001):
     # Get period returns
-    period_returns = np.prod(np.append(day_return_data, np.ones(-len(day_return_data) % hold)).reshape(-1, hold), axis=1)
+    period_returns = np.append(day_return_data, np.ones(-len(day_return_data) % hold)).reshape(-1, hold).prod(axis=1)
     # Define function to generate ROR
     def gen_ROR():
         # Get focusing periods

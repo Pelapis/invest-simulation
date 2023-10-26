@@ -31,7 +31,7 @@ line_with_error_bar <- function(data_name, k_sd = 0.12, x = seq(0.4, 0.6, length
 # Define function to generate plots
 main_plot <- function(data_name = "index") {
     # Import data from csv file
-    day_return_data <- read.csv(paste0("./data_", data_name, ".csv"))[, 3] + 1
+    day_return_data <- read.csv(paste0("./data/data_", data_name, ".csv"))[, 3] + 1
     # Plot line chart with error bars
     line_with_error_bar(data_name, x = seq(0.4, 0.6, length.out = 20), var = "Invest Level", FUN = function(x) gen_RORs(invest_level = x, day_returns = day_return_data))
     line_with_error_bar(data_name, x = seq(0, 1, length.out = 20), var = "Invest Freqency", FUN = function(x) gen_RORs(invest_freq = x, day_returns = day_return_data))

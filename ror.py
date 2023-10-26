@@ -32,7 +32,7 @@ def line_with_error_bar(data_name, k_sd=0.2, var_name="Invest Level", x=np.linsp
 # Define function to plot different arguments of ROR
 def plot_RORs(data_name="index"):
     # Import data
-    day_return_data = pd.read_csv(f"./data_{data_name}.csv").iloc[:, 2].values + 1
+    day_return_data = pd.read_csv(f"./data_{data_name}.csv").to_numpy()[:, 2] + 1
     # Plot RORs
     line_with_error_bar(data_name, var_name="Invest Level", x=np.linspace(0.4, 0.6, num=20), fun=lambda x : gen_RORs(day_return_data, invest_level=x))
     line_with_error_bar(data_name, var_name="Invest Frequency", x=np.linspace(0, 1, num=20), fun=lambda x : gen_RORs(day_return_data, invest_freq=x))

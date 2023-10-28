@@ -38,6 +38,7 @@ def plot_RORs(data_name="index"):
     line_with_error_bar(data_name, var_name="Invest Frequency", x=np.linspace(0, 1, num=20), fun=lambda x : gen_RORs(day_return_data, invest_freq=x))
     line_with_error_bar(data_name, var_name="Holding Period", x=np.linspace(1, len(day_return_data), num=20, dtype=int), fun=lambda x : gen_RORs(day_return_data, hold=x))
 
-plot_RORs("index")
-plot_RORs("maotai")
-plot_RORs("mengjie")
+if __name__ == "__main__":
+    plot_RORs("index")
+    plot_RORs("maotai")
+    plot_RORs("mengjie")

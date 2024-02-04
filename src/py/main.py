@@ -11,5 +11,5 @@ if __name__ == "__main__":
     data_generator = Data_generator(return_vectors, num_investors=100, trading_cost=0.001)
     plot_function = data_generator.get_plot_function()
     # Plot
-    plotter = Plotter(plot_function)
+    plotter = Plotter(plot_function, save_path="./plots/py")
     plotter.plot()

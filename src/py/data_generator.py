@@ -18,7 +18,9 @@ class Data_generator():
             return_vectors = self.return_vectors if include_individual else [self.return_vectors[0]]
             result = [(0.0, 0.0)] * len(return_vectors)
             num_holds = -(-len(return_vectors[0]) // hold)
-            adjusted_returns = [[math.prod(vector[j * hold: min((j + 1) * hold, num_holds)]) for j in range(num_holds)] for (i, vector) in enumerate(return_vectors)]
+            adjusted_returns = [[math.prod(vector[j * hold: min((j + 1) * hold, num_holds)])
+                for j in range(num_holds)]
+                for (i, vector) in enumerate(return_vectors)]
             for j, returns in enumerate(adjusted_returns):
                 def get_single_return() -> float:
                     treasure = 1

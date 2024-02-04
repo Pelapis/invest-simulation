@@ -1,2 +1,4 @@
 .DS_Store
 .vscode
+src/rust/target/
+src/rust/Cargo.lock

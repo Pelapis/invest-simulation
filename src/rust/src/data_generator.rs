@@ -32,7 +32,7 @@ impl DataGenerator {
                         let growing = ret > 1.;
                         let win = self.rng.gen::<f64>() < level;
                         let participating = self.rng.gen::<f64>() < participation;
-                        cumulative_return *= if growing == win && participating {ret * (1 as f64 - self.trading_cost)} else {1.};
+                        cumulative_return *= if growing == win && participating {ret * (1. - self.trading_cost)} else {1.};
                     }
                     cumulative_return
                 };

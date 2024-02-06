@@ -23,7 +23,7 @@ class Data_generator():
             adjusted_returns = [[math.prod(vector[j * hold: min((j + 1) * hold, num_holds)])
                 for j in range(num_holds)]
                 for (i, vector) in enumerate(return_vectors)]
-            for j, returns in enumerate(adjusted_returns):
+            for returns in adjusted_returns:
                 def get_single_return() -> float:
                     treasure = 1
                     for i, return_rate in enumerate(returns):

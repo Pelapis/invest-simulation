@@ -1,6 +1,5 @@
-fn fun(x: i32) {
-
-}
 fn main() {
-    fun(23);
+    let a = Vec::from([12, 34, 54]);
+    let b = &a[0..2];
+    println!("{:?}", b);
 }

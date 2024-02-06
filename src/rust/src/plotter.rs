@@ -1,10 +1,9 @@
-pub struct Plotter;
+pub struct Plotter<'a> {
+    plot_function: &'a dyn Fn(),
+}
 
-impl Plotter {
-    pub fn set_plot_function(plot_function: &dyn Fn()) -> Plotter {
-        // 画图
-        Plotter
-    }
+impl<'a> Plotter<'a> {
+    pub fn from_plot_function(plot_function: &'a dyn Fn()) -> Self { Self { plot_function } }
     pub fn plot(&self) {
         // 画图
     }

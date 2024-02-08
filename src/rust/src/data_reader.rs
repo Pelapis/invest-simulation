@@ -5,6 +5,6 @@ pub struct DataReader {
 impl DataReader {
     pub fn from_paths(paths: Vec<String>) -> Self { Self { paths } }
     pub fn get_return_vectors(&self) -> Vec<Vec<f64>> {
-        Vec::new()
+        vec![vec![1.; 365]; self.paths.len()]
     }
 }

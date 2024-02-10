@@ -1,12 +1,12 @@
 #[derive(Clone)]
-pub struct Plotter<T: FnMut(f64, i32, f64, bool) -> Vec<(f64, f64)>> {
+pub struct Plotter<T: FnMut(f64, usize, f64, bool) -> Vec<(f64, f64)>> {
     pub plot_function: T,
 }
 
-impl<T: FnMut(f64, i32, f64, bool) -> Vec<(f64, f64)>> Plotter<T> {
+impl<T: FnMut(f64, usize, f64, bool) -> Vec<(f64, f64)>> Plotter<T> {
     pub fn from_plot_function(plot_function: T) -> Self { Self { plot_function } }
     pub fn plot(&mut self) {
-        let holds = (1..=8).collect::<Vec<i32>>();
+        let holds = (1..=8).collect::<Vec<usize>>();
         let mut mean = vec![0.0; holds.len()];
         let mut sd = vec![0.0; holds.len()];
         for (i, &hold) in holds.iter().enumerate() {

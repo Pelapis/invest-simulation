@@ -8,7 +8,7 @@ if __name__ == "__main__":
     data_reader = Data_reader(paths)
     return_vectors = data_reader.get_return_vectors()
     # Generate data
-    data_generator = Data_generator(return_vectors, num_investors=100, trading_cost=0.001)
+    data_generator = Data_generator(return_vectors, num_investors=100, trading_cost=0.00)
     plot_function = data_generator.get_plot_function()
     # Plot
     plotter = Plotter(plot_function, save_path="./plots/py")

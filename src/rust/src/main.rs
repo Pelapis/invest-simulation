@@ -9,7 +9,7 @@ use plotter::Plotter;
 fn main() {
     // 读取数据
     let paths: Vec<String> = vec![
-        // "../../data/data_index.csv".to_string(),
+        "../../data/data_index.csv".to_string(),
         "../../data/data_maotai.csv".to_string(),
         "../../data/data_mengjie.csv".to_string(),
         ];

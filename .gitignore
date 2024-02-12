@@ -2,4 +2,4 @@
 .vscode
 src/rust/target/
 src/rust/Cargo.lock
-test.rust
+test.rs

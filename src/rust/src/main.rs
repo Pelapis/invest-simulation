@@ -1,9 +1,9 @@
-mod data_reader;
 mod data_generator;
+mod data_reader;
 mod plotter;
 
-use data_reader::DataReader;
 use data_generator::DataGenerator;
+use data_reader::DataReader;
 use plotter::Plotter;
 
 fn main() {
@@ -12,12 +12,10 @@ fn main() {
         "../../data/data_index.csv".to_owned(),
         "../../data/data_maotai.csv".to_owned(),
         "../../data/data_mengjie.csv".to_owned(),
-        ];
-    let returns = DataReader::from_paths(paths.clone()).get_return_vectors();
+    ];
+    let returns = DataReader::from_paths(paths).get_return_vectors();
     // 生成数据
-    let plot_function = DataGenerator::from_data(
-        returns.clone(), 1000, 0.
-    ).get_plot_function();
+    let plot_function = DataGenerator::from_data(returns, 1000, 0.0).get_plot_function();
     // 画图
     Plotter::from_plot_function(plot_function).plot();
 }

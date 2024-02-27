@@ -12,7 +12,7 @@ class Data_generator():
         self.trading_cost = trading_cost
     def get_plot_function(self):
         rng = random.Random()
-        def plot_function(level=0.5, hold=1, participation=1.0, include_individuals=False
+        def plot_function(level=0.5, hold=1, participation=1.0, include_individuals=True
             ) -> list[tuple[float, float]]:
             """
             函数根据收益向量生成收益率和方差。

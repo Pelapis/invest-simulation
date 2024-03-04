@@ -5,7 +5,7 @@ mod plotter;
 use data_generator::DataGenerator;
 use data_reader::DataReader;
 
-fn plot_function() -> impl Fn(f64, usize, f64, usize) -> (f64, f64){
+fn plot_function() -> impl Fn(f64, usize, f64, usize) -> (f64, f64) {
     // 读取数据
     let paths: Vec<String> = vec![
         "../../data/data_index.csv".to_owned(),
@@ -14,6 +14,5 @@ fn plot_function() -> impl Fn(f64, usize, f64, usize) -> (f64, f64){
     ];
     let returns = DataReader::from_paths(paths).get_return_vectors();
     // 生成数据
-    let plot_function = DataGenerator::from_data(returns, 1000, 0.0).get_plot_function();
-    plot_function
+    DataGenerator::from_data(returns, 1000, 0.0).get_plot_function()
 }

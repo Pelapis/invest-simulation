@@ -1,19 +1,19 @@
 #[derive(Clone)]
-pub struct Plotter<T: FnMut(f64, usize, f64, bool) -> Vec<(f64, f64)>> {
+pub struct Plotter<T: Fn(f64, usize, f64, usize) -> (f64, f64)> {
     pub plot_function: T,
 }
 
-impl<T: FnMut(f64, usize, f64, bool) -> Vec<(f64, f64)>> Plotter<T> {
+impl<T: Fn(f64, usize, f64, usize) -> (f64, f64)> Plotter<T> {
     pub fn from_plot_function(plot_function: T) -> Self {
         Self { plot_function }
     }
-    pub fn plot(&mut self) {
-        let holds = (1..=8).collect::<Vec<usize>>();
-        let (mean, sd): (Vec<_>, Vec<_>) = holds
+
+    pub fn plot(&self) {
+        let holds: Vec<usize> = (1..=8).collect();
+        let (mean, sd): (Vec<f64>, Vec<f64>) = holds
             .iter()
-            .map(|hold| {
-                let a = (self.plot_function)(0.5, *hold, 1.0, false);
-                a.into_iter().unzip::<f64, f64, Vec<f64>, Vec<f64>>()
+            .map(|&hold| {
+                return (self.plot_function)(0.5, hold, 1.0, 0);
             })
             .unzip();
         println!("x坐标是：{:?}", holds);

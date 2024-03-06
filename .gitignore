@@ -1,6 +1,5 @@
 .DS_Store
 .vscode
 .zed
-src/rust/target/
-src/rust/Cargo.lock
-test.rs
+target/
+Cargo.lock

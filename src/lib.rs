@@ -1,6 +1,5 @@
 mod data_generator;
 mod data_reader;
-mod plotter;
 
 use data_generator::DataGenerator;
 use data_reader::DataReader;

@@ -15,7 +15,7 @@ impl Plotter {
             .iter()
             .map(|&hold| {
                 let plot_data = self.data_generator.plot_data(0.5, hold, 1.0);
-                (plot_data[0], plot_data[1])
+                (plot_data.mean, plot_data.sd)
             })
             .unzip();
         println!("x坐标是：{:?}", holds);

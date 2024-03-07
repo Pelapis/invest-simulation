@@ -18,7 +18,7 @@ impl DataGenerator {
         }
     }
 
-    pub fn plot_data(&self, level: f64, hold: usize, participation: f64) -> Vec<f64> {
+    pub fn plot_data(&self, level: f64, hold: usize, participation: f64) -> PlotData {
         let return_vector = &self.return_vector;
         let num_holds = return_vector.len().div_ceil(hold);
         let adjusted_return: Vec<f64> = (0..num_holds)
@@ -28,7 +28,7 @@ impl DataGenerator {
                     .product()
             })
             .collect();
-        let investors_return: Vec<f64> = (0..self.num_investors)
+        let mut investors_return: Vec<f64> = (0..self.num_investors)
             .map(|_| {
                 adjusted_return.iter().fold(1., |acc, &e| {
                     let growing = e > 1.;
@@ -49,6 +49,29 @@ impl DataGenerator {
             .sum::<f64>()
             / self.num_investors as f64)
             .sqrt();
-        vec![mean, sd]
+        // 获取investors_return的分位数
+        investors_return.sort_by(|a, b| a.partial_cmp(b).unwrap());
+        let percentile90 = investors_return[(self.num_investors as f64 * 0.9 - 1.).ceil() as usize];
+        let percentile10 = investors_return[(self.num_investors as f64 * 0.1 - 1.).ceil() as usize];
+        let percentile95 = investors_return[(self.num_investors as f64 * 0.95 - 1.).ceil() as usize];
+        let percentile5 = investors_return[(self.num_investors as f64 * 0.05 - 1.).ceil() as usize];
+        PlotData {
+            mean,
+            sd,
+            percentile90,
+            percentile10,
+            percentile95,
+            percentile5,
+        }
     }
+}
+
+#[wasm_bindgen]
+pub struct PlotData {
+    pub mean: f64,
+    pub sd: f64,
+    pub percentile90: f64,
+    pub percentile10: f64,
+    pub percentile95: f64,
+    pub percentile5: f64,
 }

@@ -29,7 +29,7 @@ mod plotter {
         }
 
         pub fn plot(&self) {
-            let holds: Vec<usize> = (1..=8).collect();
+            let holds: Vec<usize> = (1..=3).collect();
             let (mean, sd): (Vec<f64>, Vec<f64>) = holds
                 .iter()
                 .map(|&hold| {

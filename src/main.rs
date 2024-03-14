@@ -6,12 +6,12 @@ use data_reader::DataReader;
 use plotter::Plotter;
 
 fn main() {
-    let paths = vec![
+    let paths = [
         "./data/data_index.csv",
         "./data/data_maotai.csv",
         "./data/data_mengjie.csv",
     ];
-    let returns = DataReader::return_vector_from_path(&paths[0]);
+    let returns = DataReader::return_vector_from_path(paths[0]);
     let data_generator = DataGenerator::new(returns, 1000, 0.);
     let plotter = Plotter::new(data_generator);
     plotter.plot();

@@ -16,7 +16,7 @@ impl DataReader {
             .lines()
             .filter_map(|line| {
                 let line = line.expect("line not found 行找不到");
-                line.split(",").nth(2)?.parse::<f64>().ok()
+                line.split(',').nth(2)?.parse::<f64>().ok()
             })
             .collect()
     }
@@ -24,7 +24,7 @@ impl DataReader {
     pub fn return_vector_from_string(content: &str) -> Vec<f64> {
         content
             .lines()
-            .filter_map(|line| line.split(",").nth(2)?.parse::<f64>().ok())
+            .filter_map(|line| line.split(',').nth(2)?.parse::<f64>().ok())
             .collect()
     }
 }

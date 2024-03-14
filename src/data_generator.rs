@@ -1,4 +1,4 @@
-use rand;
+use rand::random;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
@@ -32,8 +32,8 @@ impl DataGenerator {
             .map(|_| {
                 adjusted_return.iter().fold(1., |acc, &e| {
                     let growing = e > 1.;
-                    let win = rand::random::<f64>() < level;
-                    let participating = rand::random::<f64>() < participation;
+                    let win = random::<f64>() < level;
+                    let participating = random::<f64>() < participation;
                     if growing == win && participating {
                         acc * e * (1. - self.trading_cost)
                     } else {
@@ -53,7 +53,8 @@ impl DataGenerator {
         investors_return.sort_by(|a, b| a.partial_cmp(b).unwrap());
         let percentile90 = investors_return[(self.num_investors as f64 * 0.9 - 1.).ceil() as usize];
         let percentile10 = investors_return[(self.num_investors as f64 * 0.1 - 1.).ceil() as usize];
-        let percentile95 = investors_return[(self.num_investors as f64 * 0.95 - 1.).ceil() as usize];
+        let percentile95 =
+            investors_return[(self.num_investors as f64 * 0.95 - 1.).ceil() as usize];
         let percentile5 = investors_return[(self.num_investors as f64 * 0.05 - 1.).ceil() as usize];
         PlotData {
             mean,

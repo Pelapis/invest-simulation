@@ -16,13 +16,13 @@ rng = random.Random()
 random_matrix = [[rng.random() < level for _ in ror] for _ in range(no)]
 
 # 计算结果向量
-result = [[(ror[i] > 1 == random_matrix[j][i]) * (ror[i] - 1) + 1 for i in range(len(ror))] for j in range(no)]
+current_return = [[(ror[i] > 1 == random_matrix[j][i]) * (ror[i] - 1) + 1 for i in range(len(ror))] for j in range(no)]
 # 初始化curve
 curve = [[1. for j in range(len(ror))] for _ in range(no)]
 for i in range(no):
-    curve[i][0] = result[i][0]
+    curve[i][0] = current_return[i][0]
     for j in range(1, len(ror)):
-        curve[i][j] = curve[i][j - 1] * result[i][j]
+        curve[i][j] = curve[i][j - 1] * current_return[i][j]
 
 # 画图
 import matplotlib.pyplot as plt

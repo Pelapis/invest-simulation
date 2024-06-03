@@ -14,12 +14,13 @@ pub struct PlotData {
 #[wasm_bindgen]
 pub fn curve_data(
     text: &str,
-    number: usize,
+    investors_no: usize,
     trading_cost: f64,
     level: f64,
     hold: usize,
     participation: f64,
 ) -> PlotData {
+    // 数据预处理
     let return_vector: Vec<f64> = text
         .lines()
         .filter_map(|line| line.split(',').nth(2)?.parse::<f64>().ok())
@@ -32,33 +33,41 @@ pub fn curve_data(
                 .product()
         })
         .collect();
-    let mut investors_return: Vec<f64> = (0..number)
-        .map(|_| {
-            adjusted_return.iter().fold(1., |acc, &e| {
-                let growing = e > 1.;
-                let win = random::<f64>() < level;
-                let participating = random::<f64>() < participation;
-                if growing == win && participating {
-                    acc * e * (1. - trading_cost)
-                } else {
-                    acc
-                }
-            })
+    // 生成需要的随机数
+    let random_matrix: Vec<Vec<f64>> = (0..investors_no)
+        .map(|_| (0..holds_no).map(|_| random::<f64>()).collect())
+        .collect();
+    // 计算各投资者的最终收益率
+    let mut investors_return: Vec<f64> = (0..investors_no)
+        .map(|i| {
+            adjusted_return
+                .iter()
+                .zip(random_matrix[i].iter())
+                .fold(1., |acc, (&e, &r)| {
+                    let growing = e > 1.;
+                    let win = r < level;
+                    let participating = r < participation;
+                    if growing == win && participating {
+                        acc * e * (1. - trading_cost)
+                    } else {
+                        acc
+                    }
+                })
         })
         .collect();
-    let mean = investors_return.iter().sum::<f64>() / number as f64;
+    // 计算统计学特征，只保留一个数值
+    let mean = investors_return.iter().sum::<f64>() / investors_no as f64;
     let sd = (investors_return
         .iter()
         .map(|&x| (x - mean).powi(2))
         .sum::<f64>()
-        / number as f64)
+        / investors_no as f64)
         .sqrt();
-    // 获取investors_return的分位数
     investors_return.sort_by(|a, b| a.partial_cmp(b).unwrap());
-    let percentile90 = investors_return[(number as f64 * 0.9 - 1.).ceil() as usize];
-    let percentile10 = investors_return[(number as f64 * 0.1 - 1.).ceil() as usize];
-    let percentile95 = investors_return[(number as f64 * 0.95 - 1.).ceil() as usize];
-    let percentile5 = investors_return[(number as f64 * 0.05 - 1.).ceil() as usize];
+    let percentile90 = investors_return[(investors_no as f64 * 0.9 - 1.).ceil() as usize];
+    let percentile10 = investors_return[(investors_no as f64 * 0.1 - 1.).ceil() as usize];
+    let percentile95 = investors_return[(investors_no as f64 * 0.95 - 1.).ceil() as usize];
+    let percentile5 = investors_return[(investors_no as f64 * 0.05 - 1.).ceil() as usize];
     PlotData {
         mean,
         sd,

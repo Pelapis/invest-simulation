@@ -4,7 +4,7 @@ import random
 import functools as ft
 
 # 设置参数
-path = '../../data/data_index.csv'
+path = '~/code/invest-simulation/data/data_index.csv'
 level = 0.5
 no = 100
 
@@ -26,5 +26,6 @@ for i in range(no):
 
 # 画图
 import matplotlib.pyplot as plt
-plt.plot(curve[0])
+for i in range(no):
+    plt.plot(curve[i])
 plt.show()

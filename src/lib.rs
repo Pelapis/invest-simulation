@@ -1,3 +1,5 @@
+// For WebAssembly.
+
 use rand::random;
 use wasm_bindgen::prelude::*;
 

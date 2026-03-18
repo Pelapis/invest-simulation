@@ -1,7 +1,9 @@
-// For WebAssembly.
-
-use rand::random;
 use wasm_bindgen::prelude::*;
+
+#[wasm_bindgen(module = "/rand.js")]
+extern "C" {
+    fn rand() -> f64;
+}
 
 #[wasm_bindgen]
 pub struct PlotData {
@@ -37,7 +39,7 @@ pub fn curve_data(
         .collect();
     // 生成需要的随机数
     let random_matrix: Vec<Vec<f64>> = (0..investors_no)
-        .map(|_| (0..holds_no).map(|_| random::<f64>()).collect())
+        .map(|_| (0..holds_no).map(|_| rand()).collect())
         .collect();
     // 计算各投资者的最终收益率
     let mut investors_return: Vec<f64> = (0..investors_no)
@@ -78,4 +80,9 @@ pub fn curve_data(
         percentile95,
         percentile5,
     }
+}
+
+#[wasm_bindgen]
+pub fn n_data(n: i32) -> Vec<PlotData> {
+    (0..n).map(|_| curve_data("1,2,3,4,5", 100, 0.003, 0.05, 100, 0.5)).collect()
 }
